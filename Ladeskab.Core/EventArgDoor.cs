@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Ladeskab.Core
 {
-    public class Class1
+    public class EventArgDoor : EventArgs
     {
+        public DoorEvent doorEvent { get; set; }
     }
 }

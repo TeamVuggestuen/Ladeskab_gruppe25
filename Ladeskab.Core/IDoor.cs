@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ladeskab.Test
+namespace Ladeskab.Core
 {
-    public class Class1
+    public interface IDoor
     {
-
+        event EventHandler<> 
     }
 }
