@@ -1,16 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics.Contracts;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ladeskab.Core
+
+namespace Ladeskab 
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        // SNAKKET MED FRANK OM HVORDAN DET DE KOM MED OVER, DOG KAN MAIN IKKE VÆRE STATIC, HVILKET HAN MENTE DEN SKULLE BLIVE VED MED AT VÆRE, MEN HAR FJERNET DET DA DET LAVEDE FEJL
+        public IDoor _door;
+        private StationControl _stationControl;
+
+        
+        //Static fjernet
+        void Main(string[] args)
         {
             // Assemble your system here from all the classes
+
+            //EN AF DE TING VI SKAL HA MED IND I VORES MAIN.
+            _stationControl = new StationControl(_door);
+
 
             bool finish = false;
             do
@@ -27,11 +38,11 @@ namespace Ladeskab.Core
                         break;
 
                     case 'O':
-                        door.OnDoorOpen();
+                        _door.OpenDoor();
                         break;
 
                     case 'C':
-                        door.OnDoorClose();
+                        _door.CloseDoor();
                         break;
 
                     case 'R':
@@ -39,7 +50,7 @@ namespace Ladeskab.Core
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        rfidReader.OnRfidRead(id);
+                        //rfidReader.OnRfidRead(id); LAVER FEJL TIL DEN ER IMPLEMENTERET
                         break;
 
                     default:

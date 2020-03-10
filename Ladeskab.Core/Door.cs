@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ladeskab.Core
+namespace Ladeskab
 {
     public class Door : IDoor
     {
@@ -33,5 +33,26 @@ namespace Ladeskab.Core
         {
             DoorEvent?.Invoke(this, e);
         }
+
+
+        // DISSE 2 FUNKTIONER ER KUN MED TIL AT VISE HVAD BRUGEREN ER I GANG MED, OG KALDER DERFOR VIDERE
+        public void OpenDoor()
+        {
+
+            Console.WriteLine("Door Open");
+            UnlockDoor();
+
+        }
+
+        public void CloseDoor()
+        {
+
+            Console.WriteLine("Door Closed");
+            LockDoor();
+
+        }
     }
+
+
+
 }

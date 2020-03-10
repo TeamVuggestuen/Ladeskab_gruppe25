@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ladeskab.Core
+namespace Ladeskab
 {
     public class DoorEventArgs : EventArgs
     {
@@ -15,6 +15,8 @@ namespace Ladeskab.Core
         event EventHandler<DoorEventArgs> DoorEvent;
         void UnlockDoor();
         void LockDoor();
+        void OpenDoor();
+        void CloseDoor();
     }
 }
 
