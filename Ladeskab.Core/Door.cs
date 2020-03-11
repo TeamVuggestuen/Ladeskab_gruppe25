@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Ladeskab.Core;
 
 namespace Ladeskab
 {
     public class Door : IDoor
     {
+        private IDisplay _display;
+
+        public Door(IDisplay display)
+        {
+            _display = display;
+        }
+
         public event EventHandler<DoorEventArgs> DoorEvent;
 
         private bool doorIsLocked = false;
@@ -28,7 +36,7 @@ namespace Ladeskab
 
         public void OnDoorClosed()
         {
-            doorIsClosed = false;
+            doorIsClosed = true;
             OnDoorChanged(new DoorEventArgs { DoorClosed = doorIsClosed });
         }
 

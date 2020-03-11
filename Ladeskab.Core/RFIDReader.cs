@@ -8,11 +8,16 @@ namespace Ladeskab.Core
 {
     public class RFIDReader : IRFIDReader
     {
-        private int ID;
+        public event EventHandler<RfidEventArgs> RfidEvent;
 
-        void onRfidRead(int id)
+        public void onRfidRead(int id)
         {
-            ID = id;
+            OnRfidDetected(new RfidEventArgs { Rfid_ID = id});
+        }
+
+        protected virtual void OnRfidDetected(RfidEventArgs e)
+        {
+            RfidEvent?.Invoke(this, e);
         }
     }
 }

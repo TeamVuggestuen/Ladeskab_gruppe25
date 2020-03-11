@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace Ladeskab.Core
 {
-    public class DoorEventArgs : EventArgs
+    public class RfidEventArgs : EventArgs
     {
-        public bool DoorClosed { get; set; }
+        public int Rfid_ID { get; set; }
     }
 
     public interface IRFIDReader
     {
+        event EventHandler<RfidEventArgs> RfidEvent;
         void onRfidRead(int id);
     }
 }
