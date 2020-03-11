@@ -9,25 +9,29 @@ namespace Ladeskab
     {
         public event EventHandler<DoorEventArgs> DoorEvent;
 
-        private bool _DoorState;
+        private bool doorIsLocked = false;
+        private bool doorIsClosed = false;
 
-        public void OpenDoor()
+
+        public void OnDoorOpen()
         {
-            if (_DoorState == false)
+            if (doorIsLocked)
             {
-                OnDoorChanged(new DoorEventArgs{ DoorState = true});
-                _DoorState = true;
+                Console.WriteLine("Door is locked. Cannot open"); // display
+            }
+            else if (!doorIsLocked)
+            {
+                doorIsClosed = false;
+                OnDoorChanged(new DoorEventArgs { DoorClosed = doorIsClosed });
             }
         }
 
-        public void CloseDoor()
+        public void OnDoorClosed()
         {
-            if (_DoorState == true)
-            {
-                OnDoorChanged(new DoorEventArgs { DoorState = false });
-                _DoorState = false;
-            }
+            doorIsClosed = false;
+            OnDoorChanged(new DoorEventArgs { DoorClosed = doorIsClosed });
         }
+
 
         protected virtual void OnDoorChanged(DoorEventArgs e)
         {
@@ -38,18 +42,22 @@ namespace Ladeskab
         // DISSE 2 FUNKTIONER ER KUN MED TIL AT VISE HVAD BRUGEREN ER I GANG MED, OG KALDER DERFOR VIDERE
         public void UnlockDoor()
         {
-
-            Console.WriteLine("Door Open");
-            //UnlockDoor();
-
+            if (!doorIsLocked)
+            {
+                doorIsLocked = true;
+            }
+            else
+                return;
         }
 
         public void LockDoor()
         {
-
-            Console.WriteLine("Door Closed");
-            //LockDoor();
-
+            if (!doorIsLocked)
+            {
+                doorIsLocked = true;
+            }
+            else
+                return;
         }
     }
 

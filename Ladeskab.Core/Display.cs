@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ladeskab.Core
 {
-    class Display : IDisplay
+    public class Display : IDisplay
     {
         public void ConnectPhoneRequest()
         {

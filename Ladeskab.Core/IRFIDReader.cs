@@ -1,24 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ladeskab
+namespace Ladeskab.Core
 {
     public class DoorEventArgs : EventArgs
     {
         public bool DoorClosed { get; set; }
     }
 
-    public interface IDoor
+    public interface IRFIDReader
     {
-        event EventHandler<DoorEventArgs> DoorEvent;
-        void UnlockDoor();
-        void LockDoor();
-        void OnDoorOpen();
-        void OnDoorClosed();
+        void onRfidRead(int id);
     }
 }
-
-
-    
