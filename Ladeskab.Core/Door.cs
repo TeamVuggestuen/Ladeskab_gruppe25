@@ -9,7 +9,7 @@ namespace Ladeskab
     {
         public event EventHandler<DoorEventArgs> DoorEvent;
 
-        private bool doorIsLocked = false;
+        public bool doorIsLocked = false;
         private bool doorIsClosed = false;
 
 
@@ -28,7 +28,7 @@ namespace Ladeskab
 
         public void OnDoorClosed()
         {
-            doorIsClosed = false;
+            doorIsClosed = true;
             OnDoorChanged(new DoorEventArgs { DoorClosed = doorIsClosed });
         }
 
