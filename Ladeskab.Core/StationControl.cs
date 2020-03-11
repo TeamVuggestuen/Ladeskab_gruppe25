@@ -4,6 +4,7 @@ using System.IO;
 
 using System.Text;
 using System.Threading.Tasks;
+using Ladeskab.Core;
 
 
 namespace Ladeskab
@@ -22,14 +23,38 @@ namespace Ladeskab
         private LadeskabState _state;
         private IUsbCharger _charger;
         public IDoor _Door;
+        public IDisplay _Display;
         private int _oldId;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
-        public StationControl(IDoor Door)
+        // Attach
+        // StationControl tilknytter sig en specifik dørs event og et specifikt display som vi skal kommunikere med
+        public StationControl(IDoor Door, IDisplay display)
         {
-            _Door = Door;
+            //_Door = Door;
+            Door.DoorEvent += HandleDoorEvent;
+            _Display = display;
         }
+
+        #region HandleDoorEvent
+
+        private void HandleDoorEvent(object sender, DoorEventArgs e)
+        {
+            if (e.DoorState) // hvis døren åbnes beder vi brugeren om at tilslutte sin telefon
+            {
+                _Display.ConnectPhoneRequest();
+            }
+
+            else if (!e.DoorState) // hvis døren lukkes beder vi brugeren scanne RFID
+            {
+                _Display.ReadRFIDRequest();
+            }
+        }
+
+        #endregion
+
+
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)

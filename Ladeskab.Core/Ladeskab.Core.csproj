@@ -48,7 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Display.cs" />
     <Compile Include="Door.cs" />
+    <Compile Include="IDisplay.cs" />
     <Compile Include="IDoor.cs" />
     <Compile Include="IUsbCharger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

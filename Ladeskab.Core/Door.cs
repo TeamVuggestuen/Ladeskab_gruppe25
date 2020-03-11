@@ -11,7 +11,7 @@ namespace Ladeskab
 
         private bool _DoorState;
 
-        public void UnlockDoor()
+        public void OpenDoor()
         {
             if (_DoorState == false)
             {
@@ -20,7 +20,7 @@ namespace Ladeskab
             }
         }
 
-        public void LockDoor()
+        public void CloseDoor()
         {
             if (_DoorState == true)
             {
@@ -36,19 +36,19 @@ namespace Ladeskab
 
 
         // DISSE 2 FUNKTIONER ER KUN MED TIL AT VISE HVAD BRUGEREN ER I GANG MED, OG KALDER DERFOR VIDERE
-        public void OpenDoor()
+        public void UnlockDoor()
         {
 
             Console.WriteLine("Door Open");
-            UnlockDoor();
+            //UnlockDoor();
 
         }
 
-        public void CloseDoor()
+        public void LockDoor()
         {
 
             Console.WriteLine("Door Closed");
-            LockDoor();
+            //LockDoor();
 
         }
     }
