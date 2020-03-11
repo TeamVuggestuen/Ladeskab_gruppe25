@@ -17,7 +17,7 @@ namespace Ladeskab
 
         public event EventHandler<DoorEventArgs> DoorEvent;
 
-        private bool doorIsLocked = false;
+        public bool doorIsLocked = false;
         private bool doorIsClosed = false;
 
 

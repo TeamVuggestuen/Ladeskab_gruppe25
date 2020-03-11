@@ -48,11 +48,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="TestDoor.cs" />
+    <Compile Include="TestStationControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestUsbChargerSimulator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ladeskab.Core\Ladeskab.Core.csproj">
+      <Project>{0A0B4F9E-A306-4AF9-B2E5-4E14C28E0B5E}</Project>
+      <Name>Ladeskab.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
