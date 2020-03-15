@@ -30,23 +30,34 @@ namespace Ladeskab
 
         // Attach
         // StationControl tilknytter sig en specifik dørs event og et specifikt display som vi skal kommunikere med
-        public StationControl(IDoor Door, IDisplay display)
+        public StationControl(IDoor Door, IDisplay display, IRFIDReader RfidReader)
         {
-            //_Door = Door;
+            _Door = Door;
             Door.DoorEvent += HandleDoorEvent;
             _Display = display;
+            RfidReader.RfidEvent += HandleRfidEvent;
         }
+
+        #region HandleRfidEvent
+
+        private void HandleRfidEvent(object sender, RfidEventArgs e)
+        {
+            RfidDetected(e.Rfid_ID);
+        }
+
+        #endregion
+
 
         #region HandleDoorEvent
 
         private void HandleDoorEvent(object sender, DoorEventArgs e)
         {
-            if (e.DoorState) // hvis døren åbnes beder vi brugeren om at tilslutte sin telefon
+            if (e.DoorClosed) // hvis døren åbnes beder vi brugeren om at tilslutte sin telefon
             {
                 _Display.ConnectPhoneRequest();
             }
 
-            else if (!e.DoorState) // hvis døren lukkes beder vi brugeren scanne RFID
+            else if (!e.DoorClosed) // hvis døren lukkes beder vi brugeren scanne RFID
             {
                 _Display.ReadRFIDRequest();
             }

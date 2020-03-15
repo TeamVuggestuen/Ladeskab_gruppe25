@@ -16,5 +16,7 @@ namespace Ladeskab.Core
         void DisplayConnectionError();
         void DisplayLockerOccupied();
         void DisplayRFIDError();
+
+        void Display
     }
 }
