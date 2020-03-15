@@ -12,11 +12,12 @@ namespace Ladeskab.Test
     [TestFixture]
     public class TestStationControl
     {
-        private Ladeskab.StationControl _uut;
+        private StationControl _uut;
+
         [SetUp]
         public void Setup()
         {
-            _uut = new Ladeskab.StationControl();
+            _uut = new StationControl();
         }
 
   
