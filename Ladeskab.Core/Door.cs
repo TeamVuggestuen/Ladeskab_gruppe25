@@ -15,6 +15,12 @@ namespace Ladeskab
             _display = display;
         }
 
+        public Door()
+        {
+           
+        }
+
+
         public event EventHandler<DoorEventArgs> DoorEvent;
 
         public bool doorIsLocked = false;

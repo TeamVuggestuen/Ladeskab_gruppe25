@@ -20,7 +20,7 @@ namespace Ladeskab
             // Assemble your system here from all the classes
 
             //EN AF DE TING VI SKAL HA MED IND I VORES MAIN.
-            _stationControl = new StationControl(_door);
+            _stationControl = new StationControl();
 
 
             bool finish = false;
@@ -38,11 +38,11 @@ namespace Ladeskab
                         break;
 
                     case 'O':
-                        _door.OpenDoor();
+                        _door.OnDoorOpen();
                         break;
 
                     case 'C':
-                        _door.CloseDoor();
+                        _door.OnDoorClosed();
                         break;
 
                     case 'R':

@@ -21,7 +21,7 @@ namespace Ladeskab
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        private IUsbCharger _charger;
+        public IUsbCharger _charger;
         public IDoor _Door;
         public IDisplay _Display;
         private int _oldId;
@@ -30,12 +30,17 @@ namespace Ladeskab
 
         // Attach
         // StationControl tilknytter sig en specifik dørs event og et specifikt display som vi skal kommunikere med
-        public StationControl(IDoor Door, IDisplay display, IRFIDReader RfidReader)
+        public StationControl(IDoor Door, IDisplay display, IRFIDReader RfidReader, IUsbCharger usbCharger)
         {
             _Door = Door;
             Door.DoorEvent += HandleDoorEvent;
             _Display = display;
             RfidReader.RfidEvent += HandleRfidEvent;
+            usbCharger.CurrentValueEvent += HandleUsbCharger; // EVENT PÅ USB
+        }
+
+        public StationControl()
+        {
         }
 
         #region HandleRfidEvent
@@ -65,7 +70,10 @@ namespace Ladeskab
 
         #endregion
 
-
+        private void HandleUsbCharger(object sender, CurrentEventArgs e)
+        {
+          // VED IKKE LIGE HVAD SKAL HENVISE TIL HER
+        }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)

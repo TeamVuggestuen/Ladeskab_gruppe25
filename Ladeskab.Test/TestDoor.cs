@@ -12,8 +12,8 @@ namespace Ladeskab.Test
     [TestFixture]
     public class TestDoor
     {
-        private Door _uut;
-        private EventArgs _receivedEventArgs;
+        public Door _uut;
+        public EventArgs _receivedEventArgs;
 
         [SetUp]
         public void Setup()
@@ -44,7 +44,7 @@ namespace Ladeskab.Test
         [Test]
         public void CheckOnDoorIsClose()
         {
-            _uut.OnDoorOpen();
+            _uut.OnDoorClosed();
 
             Assert.That(_uut.doorIsLocked, Is.True);
 
