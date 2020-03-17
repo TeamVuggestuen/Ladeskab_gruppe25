@@ -13,7 +13,7 @@ namespace Ladeskab.Core
 
     public interface IRFIDReader
     {
-        event EventHandler<RfidEventArgs> RfidEvent;
+        event EventHandler<RfidEventArgs> RfidEvent;    
         void onRfidRead(int id);
     }
 }

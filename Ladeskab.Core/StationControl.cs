@@ -19,61 +19,125 @@ namespace Ladeskab
             DoorOpen
         };
 
-        // Her mangler flere member variable
+        // member variables
         private LadeskabState _state;
         public IUsbCharger _charger;
         public IDoor _Door;
         public IDisplay _Display;
         private int _oldId;
 
+
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
-        // Attach
-        // StationControl tilknytter sig en specifik dørs event og et specifikt display som vi skal kommunikere med
+
         public StationControl(IDoor Door, IDisplay display, IRFIDReader RfidReader, IUsbCharger usbCharger)
         {
+
+            Door.DoorEvent += HandleDoorEvent;                  //attach to door event
             _Door = Door;
-            Door.DoorEvent += HandleDoorEvent;
+
+            RfidReader.RfidEvent += HandleRfidEvent;            //attach to rfid event
+
+            usbCharger.CurrentValueEvent += HandleUsbCharger;   //attach to USB event
+            _charger = usbCharger;
+
             _Display = display;
-            RfidReader.RfidEvent += HandleRfidEvent;
-            usbCharger.CurrentValueEvent += HandleUsbCharger; // EVENT PÅ USB
         }
-
-        public StationControl()
-        {
-        }
-
-        #region HandleRfidEvent
-
-        private void HandleRfidEvent(object sender, RfidEventArgs e)
-        {
-            RfidDetected(e.Rfid_ID);
-        }
-
-        #endregion
 
 
         #region HandleDoorEvent
-
         private void HandleDoorEvent(object sender, DoorEventArgs e)
         {
-            if (e.DoorClosed) // hvis døren åbnes beder vi brugeren om at tilslutte sin telefon
-            {
-                _Display.ConnectPhoneRequest();
-            }
+            doorStateChangeDetected(e);
+        }
 
-            else if (!e.DoorClosed) // hvis døren lukkes beder vi brugeren scanne RFID
+        private void doorStateChangeDetected(DoorEventArgs e)
+        {
+            switch (_state)
             {
-                _Display.ReadRFIDRequest();
+                case LadeskabState.Available:
+                    if (!e.DoorClosed)
+                    {
+                        _Display.ConnectPhoneRequest();
+                        _state = LadeskabState.DoorOpen;
+                    }
+                    else
+                    {
+                        _Display.Error();
+                    }
+                    break;
+                case LadeskabState.DoorOpen:
+                    if (e.DoorClosed)
+                    {
+                        _Display.ReadRFIDRequest();
+                        _state = LadeskabState.Available;
+                    }
+                    else
+                    {
+                        _Display.Error();
+                    }
+                    break;
+                case LadeskabState.Locked:
+                    _Display.DisplayLockerOccupied();
+                    break;
             }
         }
 
+        #region team David alt
+
+        //private void HandleDoorEvent(object sender, DoorEventArgs e)
+        //{
+        //    switch (_state)
+        //    {
+        //        case LadeskabState.Available:
+        //            doorOpenedEvent(e);
+        //            break;
+        //        case LadeskabState.DoorOpen:
+        //            doorClosedEvent(e);
+        //            break;
+        //        case LadeskabState.Locked:
+        //            _Display.DisplayLockerOccupied();
+        //    }
+        //}
+
+        //private void doorOpenedEvent(DoorEventArgs e)
+        //{
+        //    if (!e.DoorClosed)
+        //    {
+        //        _Display.ConnectPhoneRequest();
+        //        _state = LadeskabState.DoorOpen;
+        //    }
+        //    else
+        //    {
+        //        _Display.RemovePhoneRequest();
+        //    }
+        //}
+
+        //private void doorClosedEvent(DoorEventArgs e)
+        //{
+        //    if (e.DoorClosed)
+        //    {
+        //        _Display.ReadRFIDRequest();
+        //        _state = LadeskabState.Available;
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("");
+        //    }
+        //}        
+
         #endregion
+
+        #endregion
+
 
         private void HandleUsbCharger(object sender, CurrentEventArgs e)
         {
           // VED IKKE LIGE HVAD SKAL HENVISE TIL HER
         }
+
+
+        #region rfidDetected (Eventhandler)
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
@@ -128,7 +192,16 @@ namespace Ladeskab
                     break;
             }
         }
+        #endregion
 
-        // Her mangler de andre trigger handlere
+
+        #region HandleRfidEvent
+
+        private void HandleRfidEvent(object sender, RfidEventArgs e)
+        {
+            RfidDetected(e.Rfid_ID);
+        }
+
+        #endregion
     }
 }

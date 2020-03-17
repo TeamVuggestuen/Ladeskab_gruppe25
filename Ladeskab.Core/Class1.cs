@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Text;
 using System.Threading.Tasks;
+using Ladeskab.Core;
 
 
 namespace Ladeskab 
@@ -10,7 +11,10 @@ namespace Ladeskab
     public class Program
     {
         // SNAKKET MED FRANK OM HVORDAN DET DE KOM MED OVER, DOG KAN MAIN IKKE VÆRE STATIC, HVILKET HAN MENTE DEN SKULLE BLIVE VED MED AT VÆRE, MEN HAR FJERNET DET DA DET LAVEDE FEJL
-        public IDoor _door;
+        public Door _door = new Door();
+        public Display _display = new Display();
+        public UsbChargerSimulator _usbChargerSimulator = new UsbChargerSimulator();
+        public RFIDReader _rfidReader = new RFIDReader();
         private StationControl _stationControl;
 
         
@@ -20,8 +24,7 @@ namespace Ladeskab
             // Assemble your system here from all the classes
 
             //EN AF DE TING VI SKAL HA MED IND I VORES MAIN.
-            _stationControl = new StationControl();
-
+            _stationControl = new StationControl(_door, _display, _rfidReader, _usbChargerSimulator);
 
             bool finish = false;
             do

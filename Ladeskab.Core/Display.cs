@@ -10,12 +10,12 @@ namespace Ladeskab.Core
     {
         public void ConnectPhoneRequest()
         {
-            Console.WriteLine("Connect Phone");
+            Console.WriteLine(" Press 'C' for 'Connect Phone'");
         }
 
         public void ReadRFIDRequest()
         {
-            Console.WriteLine("Read RFID");
+            Console.WriteLine("Press 'R' for 'Read RFID'");
         }
 
         public void RemovePhoneRequest()
@@ -36,6 +36,11 @@ namespace Ladeskab.Core
         public void DisplayRFIDError()
         {
             Console.WriteLine("RFID error");
+        }
+
+        public void Error()
+        {
+            Console.WriteLine("Error");
         }
     }
 }
