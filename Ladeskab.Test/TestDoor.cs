@@ -62,13 +62,13 @@ namespace Ladeskab.Test
 
         }
 
-        [Test]
-        public void CheckOnDoorIsOpenEvent()
-        {
+        //[Test]
+        //public void CheckOnDoorIsOpenEvent()
+        //{
 
-            _uut.OnDoorClosed();
-            Assert.That(_receivedEventArgs, Is.Ordered);
-        }
+        //    _uut.OnDoorClosed();
+        //    Assert.That(_receivedEventArgs, Is.Ordered);
+        //}
     }
 
 
