@@ -30,5 +30,16 @@ namespace Ladeskab.Test
 
             _uut = new StationControl(_door, _display, _rfidReader, _usbChargerSimulator);
         }
+
+        //[Test]
+        //public void Ladeskab_teststate()
+        //{
+        //    Assert.That(_uut. Is.False);
+        //}
+
+
+
+
+
     }
 }
