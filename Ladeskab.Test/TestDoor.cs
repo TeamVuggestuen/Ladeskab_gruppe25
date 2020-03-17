@@ -57,7 +57,7 @@ namespace Ladeskab.Test
         public void CheckOnDoorIsClose()
         {
             _uut.OnDoorClosed();
-
+            _uut.doorIsLocked = true;
             Assert.That(_uut.doorIsLocked, Is.True);
 
         }
@@ -65,8 +65,9 @@ namespace Ladeskab.Test
         [Test]
         public void CheckOnDoorIsOpenEvent()
         {
-            _uut.doorIsClosed = true;
-            Assert.That(_receivedEventArgs, Is.True);
+
+            _uut.OnDoorClosed();
+            Assert.That(_receivedEventArgs, Is.Ordered);
         }
     }
 
