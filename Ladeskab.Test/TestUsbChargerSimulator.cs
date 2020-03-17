@@ -96,7 +96,7 @@ namespace Ladeskab.Test
 
             _uut.CurrentValueEvent += (o, args) =>
             {
-                lastValue = args.Current;
+                lastValue = args.Current; 
                 pause.Set();
             };
 
