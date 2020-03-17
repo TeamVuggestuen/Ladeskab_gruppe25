@@ -91,22 +91,12 @@ namespace Ladeskab
 
         public void UnlockDoor() 
         {
-            if (!doorIsLocked)
-            {
-                doorIsLocked = true;
-            }
-            else 
-                return;
+            doorIsLocked = true;
         }
 
         public void LockDoor() // fjern evt if sætningen // nemmere at teste
         {
-            if (!doorIsLocked)
-            {
-                doorIsLocked = true;
-            }
-            else 
-                return;
+            doorIsLocked = true;
         }
 
         #endregion
